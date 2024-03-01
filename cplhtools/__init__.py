@@ -1,10 +1,10 @@
 # -*- coding:utf-8 -*-
 """
 * Author      : wangpeng
-* Email       : wangpeng@linkedsee.com
-* Create time : 2022/12/16 15:31
+* Email       : wangpeng@cnpc.com.cn
+* Create time : 2024/3/1 19:05
 * File name   : __init__
-* Reference   : 
-* Description : 
+* Reference   :
+* Description :
 """
 from .db_util import DB
