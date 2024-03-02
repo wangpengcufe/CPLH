@@ -17,18 +17,18 @@ class DB:
     _instance = None
 
     def __new__(cls, config_file=None):
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-        config_path = os.path.join(current_dir,  '..', 'conf')
         if config_file is None:
-            config_file = os.path.join(config_path, 'database_config.ini')
-        else:
-            config_file = os.path.join(config_path, f'{config_file}')
+            # config_file = os.path.join(os.path.dirname(__file__), '..', 'conf', 'database_config.ini')  # 开发环境
+            config_file = '/data/cplhtools/conf/database_config.ini'  # 服务器环境
+
         if cls._instance is None:
             cls._instance = super(DB, cls).__new__(cls)
             cls._instance.config = configparser.ConfigParser()
-            cls._instance.config.read(config_file)
 
-            print("Configuration sections:", cls._instance.config.sections())
+            cls._instance.config.read(config_file)
+            print("Initializing database configuration from ", config_file)
+            database_name = cls._instance.config.get('Doris', 'database')
+            print("Database name:", database_name)
 
             db_config = cls._instance.config['Doris']
             cls._instance.connection = pymysql.connect(
