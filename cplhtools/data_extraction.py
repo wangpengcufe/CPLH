@@ -8,10 +8,14 @@
 * Description : 数据提取
 """
 from cplhtools import DB
+from cplhtools import Timer
 import logging as logger
 import pandas as pd
 
+
 def query_by_sql(sql):
+    time = Timer()
+    time.start()
     db = DB()
     cursor = db.get_cursor()
     logger.info(sql)
@@ -20,6 +24,7 @@ def query_by_sql(sql):
     cursor.close()
     column_names = [column[0] for column in cursor.description]
     result_df = pd.DataFrame(result, columns=column_names)
+    print(time.elapsed_time())
     return result_df
 
 if __name__ == '__main__':
